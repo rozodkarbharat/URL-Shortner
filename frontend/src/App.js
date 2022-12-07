@@ -12,16 +12,25 @@ function App() {
 
   function handleSubmit(e){
 e.preventDefault()
-axios.post("https://rocky-beyond-29223.herokuapp.com/create",{
-  long_url,short_url
-}).then((res)=>res.data).then((data)=>{
-  if(data.short_url){
- setnewurl(()=>`https://rocky-beyond-29223.herokuapp.com/url/${data.short_url}`);
-  }
-  else{
-    seterror(()=>data)
-  }
-}).catch((err)=>{console.log(err)});
+axios
+  .post("https://url-shortner-uhk4.onrender.com/create", {
+    long_url,
+    short_url,
+  })
+  .then((res) => res.data)
+  .then((data) => {
+    console.log(data)
+    if (data.short_url) {
+      setnewurl(
+        () => `https://url-shortner-uhk4.onrender.com/url/${data.short_url}`
+      );
+    } else {
+      seterror(() => data);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
   }
   return (
     <div className="App">

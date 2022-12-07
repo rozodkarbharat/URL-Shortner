@@ -23,7 +23,7 @@ app.post("/create", async(req, res) => {
     try{
         const data=new urlModel({short_url,long_url})
         await data.save()
-        res.status(200).send({data});
+        res.status(200).send(data);
     }
     catch(err){
      res.status(500).send({error:"server error",err})
