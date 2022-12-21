@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
@@ -9,15 +9,28 @@ function App() {
   const [short_url, setshort_url] = useState('')
   const [error, seterror] = useState("")
   const [newurl, setnewurl] = useState("")
+  const [show, setshow] = useState(false)
+  const ref = useRef("")
+function handlemessage(){
+  if(ref.current){
+    clearTimeout(ref.current)
+  }
+  setshow(()=>true)
+  ref.current=setTimeout(() => {
+      setshow(() => false);
+
+  }, 2000);
+}
 
   function handleSubmit(e){
 e.preventDefault()
+console.log(short_url,long_url)
 axios
   .post("https://url-shortner-uhk4.onrender.com/create", {
     long_url,
     short_url,
   })
-  .then((res) => res.data)
+  .then((res) => res.data||console.log(res.data,"hi"))
   .then((data) => {
     console.log(data)
     if (data.short_url) {
@@ -34,11 +47,12 @@ axios
   }
   return (
     <div className="App">
+      <div className='message' style={!show?{display:"none"}:""}>Copied</div>
       <form onSubmit={handleSubmit}>
         <input
           value={short_url}
           onChange={(e) => setshort_url(e.target.value)}
-          placeholder="Give short URL"
+          placeholder="Give a name for short URL"
           required
         />
         <input
@@ -51,17 +65,17 @@ axios
         {newurl && (
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
             <p>{newurl}</p>
-            <CopyToClipboard text={newurl}>
-              <button
+            <CopyToClipboard style={{border:"0.5 ps solid black"}} text={newurl}>
+              <button onClick={handlemessage}
               className={"clipboard"}
               >
-                Copy to clipboard
+                Copy 
               </button>
             </CopyToClipboard>
           </div>
         )}
         <button style={{ cursor: "pointer" }} type="submit">
-          Create
+          shorten Url
         </button>
       </form>
     </div>

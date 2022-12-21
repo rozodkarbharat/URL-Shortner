@@ -6,6 +6,34 @@
   height: 40vmin;
   pointer-events: none;
 }
+button{background-color: rgb(44, 135, 197);
+  cursor: pointer;
+  height: 40px;
+  font-size: 18px;
+  color: white;
+  border: 0.5px;
+}
+.clipboard{
+  padding: 10px;
+}
+.message{
+  background-color: green;
+  display: flex;
+  color: white;
+  width: 80px;
+  height: 40px;
+margin: auto;
+  margin-top: 20px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+}
+input{
+  height: 40px;
+  font-size: 16px;
+  padding-left: 20px;
+  border-radius: 5px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
