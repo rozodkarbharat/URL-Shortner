@@ -24,7 +24,6 @@ function handlemessage(){
 
   function handleSubmit(e){
 e.preventDefault()
-console.log(short_url,long_url)
 axios
   .post("https://url-shortner-uhk4.onrender.com/create", {
     long_url,
@@ -32,7 +31,6 @@ axios
   })
   .then((res) => res.data||console.log(res.data,"hi"))
   .then((data) => {
-    console.log(data)
     if (data.short_url) {
       setnewurl(
         () => `https://url-shortner-uhk4.onrender.com/url/${data.short_url}`
@@ -47,7 +45,8 @@ axios
   }
   return (
     <div className="App">
-      <div className='message' style={!show?{display:"none"}:""}>Copied</div>
+      <div className='message' style={!show?{visibility:"hidden"}:{}}>Copied</div>
+      <h1 className='title'>Masai Url Shortner</h1>
       <form onSubmit={handleSubmit}>
         <input
           value={short_url}
